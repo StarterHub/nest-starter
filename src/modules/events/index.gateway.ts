@@ -9,7 +9,7 @@ import { from, Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { Server } from 'socket.io'
 
-@WebSocketGateway(3002, {
+@WebSocketGateway({
   path: '/ws',
   cors: {
     origin: '*',
