@@ -7,7 +7,10 @@ import {
 } from '@nestjs/swagger'
 import { HttpService } from './index.service'
 
-@Controller('cats')
+@Controller({
+  path: 'cats',
+  version: '1',
+})
 @ApiTags('cats')
 @Controller('cats')
 export class HttpController {

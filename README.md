@@ -19,13 +19,22 @@ $ yarn start:prod
 ```
 ## Endpoint
 
-`http://127.0.0.1:3001/api/cats`
+Http: `http://127.0.0.1:3001/api/cats`
 
 Swagger: `http://127.0.0.1:3001/api`
 
-`http://127.0.0.1:3001/graphql`
+GraphQL: `http://127.0.0.1:3001/graphql`
+```graphql
+{
+  recipe(id: "1") {
+    id,
+    title,
+  }
+}
+```
 
-`ws://127.0.0.1:3001/ws`
+
+WebSocket: `ws://127.0.0.1:3001/ws`
 
 ## Test
 
