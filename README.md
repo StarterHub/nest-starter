@@ -19,7 +19,9 @@ $ yarn start:prod
 ```
 ## Endpoint
 
-`http://127.0.0.1:3001/api`
+`http://127.0.0.1:3001/api/cats`
+
+Swagger: `http://127.0.0.1:3001/api`
 
 `http://127.0.0.1:3001/graphql`
 

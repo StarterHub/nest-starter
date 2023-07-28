@@ -28,6 +28,7 @@
     "@nestjs/platform-express": "^10.1.2",
     "@nestjs/platform-socket.io": "^10.1.2",
     "@nestjs/platform-ws": "^10.1.2",
+    "@nestjs/swagger": "^7.1.4",
     "@nestjs/websockets": "^10.1.2",
     "@socket.io/redis-adapter": "^8.2.1",
     "class-transformer": "^0.5.1",
