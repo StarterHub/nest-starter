@@ -21,6 +21,8 @@ $ yarn start:prod
 
 `http://127.0.0.1:3001/api`
 
+`http://127.0.0.1:3001/graphql`
+
 `ws://127.0.0.1:3001/ws`
 
 ## Test

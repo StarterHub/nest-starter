@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { reduce } from 'rxjs/operators'
-import { EventsGateway } from './index.gateway'
+import { WsGateway } from './index.gateway'
 
-describe('EventsGateway', () => {
-  let gateway: EventsGateway
+describe('WsGateway', () => {
+  let gateway: WsGateway
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [EventsGateway],
+      providers: [WsGateway],
     }).compile()
 
-    gateway = module.get<EventsGateway>(EventsGateway)
+    gateway = module.get<WsGateway>(WsGateway)
   })
 
   it('should be defined', () => {
