@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { HttpController } from './index.controller'
 import { HttpService } from './index.service'
 
-describe('TestController', () => {
+describe('HttpController', () => {
   let app: TestingModule
 
   beforeAll(async () => {
@@ -14,7 +14,7 @@ describe('TestController', () => {
 
   describe('getHello', () => {
     it('should return "Hello World!"', () => {
-      const appController = app.get(HttpController)
+      const appController = app.get<HttpController>(HttpController)
       expect(appController.getHello()).toBe('Hello World!')
     })
   })
