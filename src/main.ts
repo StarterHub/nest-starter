@@ -2,12 +2,23 @@ import { ValidationPipe, VersioningType } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { WsAdapter } from '@nestjs/platform-ws'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import csurf from 'tiny-csrf'
+import session from 'express-session'
+import cookieParser from 'cookie-parser'
+import helmet from 'helmet'
 import { AppModule } from './app.module'
 
-declare const module: any
-
 async function bootstrap() {
-  const app = (await NestFactory.create(AppModule)).setGlobalPrefix('/api')
+  const app = await NestFactory.create(AppModule)
+  app.use(cookieParser('cookie-parser-secret'))
+  app.use(session({ secret: 'keyboard cat' }))
+  app.use(csurf('123456789iamasecret987654321look'))
+
+  // Use Helmet
+  app.use(helmet())
+  // Enable Cors
+  app.enableCors()
+  app.setGlobalPrefix('/api')
   app.useGlobalPipes(new ValidationPipe())
   app.enableVersioning({
     type: VersioningType.HEADER,
