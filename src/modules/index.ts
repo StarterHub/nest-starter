@@ -1,3 +1,4 @@
-export { WsModule } from './ws'
-export { HttpModule } from './http'
 export { GraphQLModule, GraphQLResolver } from './graphql'
+export { HealthModule } from './health'
+export { HttpModule } from './http'
+export { WsModule } from './ws'

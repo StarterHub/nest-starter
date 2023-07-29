@@ -4,16 +4,18 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { DirectiveLocation, GraphQLDirective } from 'graphql'
 import {
   WsModule,
-  HttpModule,
+  HttpModule as CustomHttpModule,
   GraphQLModule as CustomGraphQLModule,
+  HealthModule,
 } from './modules'
 import { upperDirectiveTransformer } from './common/directives/upper-case.directive'
 
 @Module({
   imports: [
     WsModule,
-    HttpModule,
+    CustomHttpModule,
     CustomGraphQLModule,
+    HealthModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
