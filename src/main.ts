@@ -4,6 +4,8 @@ import { WsAdapter } from '@nestjs/platform-ws'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
 
+declare const module: any
+
 async function bootstrap() {
   const app = (await NestFactory.create(AppModule)).setGlobalPrefix('/api')
   app.useGlobalPipes(new ValidationPipe())
@@ -24,10 +26,15 @@ async function bootstrap() {
       in: 'header',
     })
     .build()
-  const document = SwaggerModule.createDocument(app, config, {  })
+  const document = SwaggerModule.createDocument(app, config, {})
   SwaggerModule.setup('api', app, document)
 
   await app.listen(3001)
+
+  if (module.hot) {
+    module.hot.accept()
+    module.hot.dispose(() => app.close())
+  }
 }
 
 bootstrap()
