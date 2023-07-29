@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { NewRecipeInput } from './dto/new-recipe.input'
 import { RecipesArgs } from './dto/recipes.args'
-import { Recipe } from './models/index.model'
+import { Recipe } from './models/graphql.model'
 
 @Injectable()
 export class GraphQLService {

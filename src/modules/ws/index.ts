@@ -1,2 +1,2 @@
-export { WsGateway } from './index.gateway'
-export { WsModule } from './index.module'
+export { WsGateway } from './ws.gateway'
+export { WsModule } from './ws.module'

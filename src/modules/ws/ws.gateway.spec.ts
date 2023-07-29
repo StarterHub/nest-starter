@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { reduce } from 'rxjs/operators'
-import { WsGateway } from './index.gateway'
+import { WsGateway } from './ws.gateway'
 
 describe('WsGateway', () => {
   let gateway: WsGateway

@@ -1,2 +1,2 @@
-export { HealthController } from './index.controller'
-export { HealthModule } from './index.module'
+export { HealthController } from './health.controller'
+export { HealthModule } from './health.module'

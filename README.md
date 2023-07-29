@@ -19,20 +19,21 @@ $ yarn start:prod
 ```
 ## Endpoint
 
+Swagger
+
+`http://127.0.0.1:3001/api`
+
 Http
 
-`http://127.0.0.1:3001/api/cats`
+POST: `http://127.0.0.1:3001/api/auth/login`
+
+GET: `http://127.0.0.1:3001/api/auth/profile`
 
 `http://127.0.0.1:3001/api/health/http`
 
 `http://127.0.0.1:3001/api/health/disk`
 
 `http://127.0.0.1:3001/api/health/memory`
-
-
-Swagger
-
-`http://127.0.0.1:3001/api`
 
 GraphQL
 

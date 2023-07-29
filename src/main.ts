@@ -2,7 +2,7 @@ import { ValidationPipe, VersioningType } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { WsAdapter } from '@nestjs/platform-ws'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import csurf from 'tiny-csrf'
+import bodyParser from 'body-parser'
 import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
@@ -10,9 +10,18 @@ import { AppModule } from './app.module'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
+  app.use(bodyParser.urlencoded({ extended: false }))
   app.use(cookieParser('cookie-parser-secret'))
-  app.use(session({ secret: 'keyboard cat' }))
-  app.use(csurf('123456789iamasecret987654321look'))
+  app.use(
+    session({
+      secret: 'keyboard cat',
+      cookie: {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        sameSite: 'lax', //csrf security
+      },
+    }),
+  )
 
   // Use Helmet
   app.use(helmet())
@@ -28,10 +37,10 @@ async function bootstrap() {
   app.useWebSocketAdapter(new WsAdapter(app))
 
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Api')
+    .setDescription('The API description')
     .setVersion('1')
-    .addTag('cats')
+    .addTag('users')
     .addGlobalParameters({
       name: '__version__',
       in: 'header',
