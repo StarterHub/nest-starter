@@ -19,23 +19,23 @@ $ yarn start:prod
 ```
 ## Endpoint
 
-Swagger
+### Swagger
 
-`http://127.0.0.1:3001/api`
+GET: `http://127.0.0.1:3001/api`
 
-Http
+### Http
 
 POST: `http://127.0.0.1:3001/api/auth/login`
 
 GET: `http://127.0.0.1:3001/api/auth/profile`
 
-`http://127.0.0.1:3001/api/health/http`
+GET: `http://127.0.0.1:3001/api/health/http`
 
-`http://127.0.0.1:3001/api/health/disk`
+GET: `http://127.0.0.1:3001/api/health/disk`
 
-`http://127.0.0.1:3001/api/health/memory`
+GET: `http://127.0.0.1:3001/api/health/memory`
 
-GraphQL
+### GraphQL
 
 `http://127.0.0.1:3001/graphql`
 ```graphql
@@ -47,7 +47,7 @@ GraphQL
 }
 ```
 
-WebSocket
+### WebSocket
 
 `ws://127.0.0.1:3001/ws`
 
