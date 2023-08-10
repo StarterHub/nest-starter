@@ -89,7 +89,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "engines": {
-    "node": ">= v16.20.1"
+    "node": ">= v16.20.2"
   },
   "jest": {
     "moduleFileExtensions": [
