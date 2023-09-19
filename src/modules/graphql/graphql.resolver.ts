@@ -1,6 +1,7 @@
 import { NotFoundException, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql'
 import { PubSub } from 'graphql-subscriptions'
+import { I18nContext, I18nService } from 'nestjs-i18n'
 import { NewRecipeInput } from './dto/new-recipe.input'
 import { RecipesArgs } from './dto/recipes.args'
 import { Recipe } from './models/graphql.model'
@@ -11,7 +12,23 @@ const pubSub = new PubSub()
 
 @Resolver((of) => Recipe)
 export class GraphQLResolver {
-  constructor(private readonly recipesService: GraphQLService) {}
+  constructor(
+    private readonly recipesService: GraphQLService,
+    private readonly i18n: I18nService,
+  ) {}
+
+  @Query((returns) => String)
+  async hello(): Promise<string> {
+    return this.i18n.t('common.HELLO', { lang: I18nContext.current().lang })
+  }
+
+  @Query((returns) => String)
+  async hello2(): Promise<string> {
+    return this.i18n.t('common.NEW', {
+      args: { name: 'Kimmy' },
+      lang: I18nContext.current().lang,
+    })
+  }
 
   @Query((returns) => Recipe)
   @UseGuards(GqlAuthGuard)

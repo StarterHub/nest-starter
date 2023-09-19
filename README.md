@@ -64,3 +64,7 @@ $ yarn test:e2e
 # test coverage
 $ yarn test:cov
 ```
+
+### Known issues
+
+1. [In @WebSocketGateway, I18nContext.current() returns undefined.](https://github.com/toonvanstrijp/nestjs-i18n/issues/568)

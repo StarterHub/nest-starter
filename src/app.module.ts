@@ -2,6 +2,18 @@ import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { DirectiveLocation, GraphQLDirective } from 'graphql'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import {
+  I18nModule,
+  AcceptLanguageResolver,
+  GraphQLWebsocketResolver,
+  QueryResolver,
+  CookieResolver,
+  HeaderResolver,
+} from 'nestjs-i18n'
+import { join } from 'path'
+import * as yaml from 'js-yaml'
+import { readFileSync } from 'fs'
 import {
   UsersModule,
   AuthModule,
@@ -13,14 +25,43 @@ import { upperDirectiveTransformer } from './common/directives/upper-case.direct
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [
+        () => {
+          return yaml.load(
+            readFileSync(join(__dirname, '/config/config.yaml'), 'utf8'),
+          ) as Record<string, any>
+        },
+      ],
+    }),
+    I18nModule.forRootAsync({
+      useFactory: (configService: ConfigService) => ({
+        fallbackLanguage: configService.getOrThrow('fallback_language'),
+        loaderOptions: {
+          path: join(__dirname, '/i18n/'),
+          watch: true,
+        },
+      }),
+      resolvers: [
+        GraphQLWebsocketResolver,
+        { use: QueryResolver, options: ['lang'] },
+        new HeaderResolver(['lang']),
+        new CookieResolver(),
+        AcceptLanguageResolver,
+      ],
+      inject: [ConfigService],
+    }),
     UsersModule,
     AuthModule,
-    WsModule,
     CustomGraphQLModule,
     HealthModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      context: ({ req }) => ({ req }),
+      context: (ctx: any) => ctx,
       driver: ApolloDriver,
+      subscriptions: {
+        'graphql-ws': true,
+      },
       autoSchemaFile: 'schema.gql',
       transformSchema: (schema) => upperDirectiveTransformer(schema, 'upper'),
       installSubscriptionHandlers: true,
@@ -33,6 +74,7 @@ import { upperDirectiveTransformer } from './common/directives/upper-case.direct
         ],
       },
     }),
+    WsModule,
   ],
 })
 export class AppModule {}

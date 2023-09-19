@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common'
+import { I18nContext, I18nService } from 'nestjs-i18n'
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -20,7 +21,23 @@ import { UpdateUserDto } from './dto/update-user.dto'
 @Controller('users')
 @ApiTags('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly i18n: I18nService,
+  ) {}
+
+  @Get('hello')
+  getHello(): string {
+    return this.i18n.t('common.HELLO', { lang: I18nContext.current().lang })
+  }
+
+  @Get('hello2')
+  getHello2(): string {
+    return this.i18n.t('common.NEW', {
+      args: { name: 'Kimmy' },
+      lang: I18nContext.current().lang,
+    })
+  }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {

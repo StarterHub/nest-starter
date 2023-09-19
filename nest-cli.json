@@ -4,6 +4,10 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "builder": "swc",
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "assets": [
+      { "include": "i18n/**/*", "watchAssets": true },
+      { "include": "config/*.yaml", "outDir": "./dist/", "watchAssets": true }
+    ]
   }
 }
