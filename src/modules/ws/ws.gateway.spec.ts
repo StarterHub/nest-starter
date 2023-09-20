@@ -1,12 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { reduce } from 'rxjs/operators'
 import { WsGateway } from './ws.gateway'
+import { AppModule } from '../../app.module'
 
 describe('WsGateway', () => {
   let gateway: WsGateway
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
       providers: [WsGateway],
     }).compile()
 
@@ -20,7 +22,7 @@ describe('WsGateway', () => {
   describe('findAll', () => {
     it('should return 3 numbers', (done) => {
       gateway
-        .findAll({})
+        .findAll({}, {})
         .pipe(reduce((acc, item) => [...acc, item], []))
         .subscribe((results) => {
           expect(results.length).toBe(3)
