@@ -50,7 +50,9 @@ GET: `http://127.0.0.1:3001/api/health/memory`
 
 ### WebSocket
 
-`ws://127.0.0.1:3001/ws`
+`ws`: ~~`ws://127.0.0.1:3001/ws`~~
+
+`socket-io`: `http://127.0.0.1:3001/ws`
 
 ## Test
 
@@ -68,4 +70,4 @@ $ yarn test:cov
 ### Known issues
 
 1. [In @WebSocketGateway, I18nContext.current() returns undefined.](https://github.com/toonvanstrijp/nestjs-i18n/issues/568)
-2. [ERROR [WsExceptionsHandler] Cannot read properties of undefined (reading 'logIn')](https://github.com/nestjs/nest/issues/12195)
+2. ~~[ERROR [WsExceptionsHandler] Cannot read properties of undefined (reading 'logIn')](https://github.com/nestjs/nest/issues/12195)~~
