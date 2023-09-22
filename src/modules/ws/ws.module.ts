@@ -4,10 +4,7 @@ import { JwtModule } from '@nestjs/jwt'
 import { WsGateway } from './ws.gateway'
 import { UsersModule, UsersService } from '../users'
 import { AuthService } from '../auth'
-import { LocalStrategy } from '../auth/strategies/local.strategy'
-import { JwtStrategy } from '../auth/strategies/jwt.strategy'
 import { jwtConstants } from '../auth/constants'
-import { WsJwtStrategy } from '../auth/strategies/ws-jwt.strategy'
 
 @Module({
   imports: [
@@ -19,13 +16,6 @@ import { WsJwtStrategy } from '../auth/strategies/ws-jwt.strategy'
       signOptions: { expiresIn: 24 * 60 * 60 },
     }),
   ],
-  providers: [
-    UsersService,
-    AuthService,
-    LocalStrategy,
-    // JwtStrategy,
-    WsJwtStrategy,
-    WsGateway,
-  ],
+  providers: [UsersService, AuthService, WsGateway],
 })
 export class WsModule {}

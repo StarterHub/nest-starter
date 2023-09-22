@@ -1,6 +1,6 @@
 import { ValidationPipe, VersioningType } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
-import { WsAdapter } from '@nestjs/platform-ws'
+import { IoAdapter } from '@nestjs/platform-socket.io'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import bodyParser from 'body-parser'
 import session from 'express-session'
@@ -34,7 +34,7 @@ async function bootstrap() {
     header: '__version__',
     defaultVersion: '1',
   })
-  app.useWebSocketAdapter(new WsAdapter(app))
+  app.useWebSocketAdapter(new IoAdapter(app))
 
   const config = new DocumentBuilder()
     .setTitle('Api')

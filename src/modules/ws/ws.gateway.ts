@@ -4,38 +4,44 @@ import {
   WebSocketGateway,
   WebSocketServer,
   WsResponse,
+  OnGatewayInit,
 } from '@nestjs/websockets'
 import { UseGuards } from '@nestjs/common'
 import { I18nContext, I18nService } from 'nestjs-i18n'
-import { AuthGuard } from '@nestjs/passport'
-import { Server } from 'ws'
-import { from, Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { Server, Socket } from 'socket.io'
+import { from, map, Observable } from 'rxjs'
 import { WsAuthGuard } from './ws.guard'
 
 @WebSocketGateway({
-  path: '/ws',
+  // for socket-io
+  // http://127.0.0.1:3001/ws
+  namespace: 'ws',
+  // for ws
+  // ws://127.0.0.1:3001/ws
+  // path: '/ws',
   cors: {
     origin: '*',
+    methods: ['GET', 'POST'],
+    credentials: true,
   },
   transports: ['websocket'],
 })
 // @UseGuards(WsAuthGuard)
 // @UseGuards(AuthGuard('jwt'))
-export class WsGateway {
+export class WsGateway implements OnGatewayInit<Server> {
   @WebSocketServer()
   server: Server
 
   constructor(private readonly i18n: I18nService) {}
 
   @SubscribeMessage('hello')
-  hello(client: any, @MessageBody() data: any): string {
+  hello(@MessageBody() data: any): string {
     console.log('this.i18n', this.i18n.t, I18nContext.current())
     return this.i18n.t('common.HELLO', { lang: I18nContext.current().lang })
   }
 
   @SubscribeMessage('hello2')
-  hello2(client: any, @MessageBody() data: any): string {
+  hello2(@MessageBody() data: any): string {
     return this.i18n.t('common.NEW', {
       args: { name: 'Kimmy' },
       lang: I18nContext.current().lang,
@@ -44,14 +50,18 @@ export class WsGateway {
 
   @SubscribeMessage('events')
   @UseGuards(WsAuthGuard)
-  findAll(client: any, @MessageBody() data: any): Observable<WsResponse<number>> {
+  findAll(@MessageBody() data: any): Observable<WsResponse<number>> {
     return from([1, 2, 3]).pipe(
       map((item) => ({ event: 'events', data: item })),
     )
   }
 
   @SubscribeMessage('identity')
-  async identity(@MessageBody() data: number): Promise<number> {
+  async identity(socket: Socket, @MessageBody() data: number): Promise<number> {
     return data
+  }
+
+  afterInit(server: Server): any {
+    console.log('server', server)
   }
 }

@@ -1,13 +1,40 @@
-import { ExecutionContext, Injectable } from '@nestjs/common'
-import { AuthGuard } from '@nestjs/passport'
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+import { Socket } from 'socket.io'
+import { jwtConstants } from '../auth/constants'
 
 @Injectable()
-export class WsAuthGuard extends AuthGuard('jwt') {
-  constructor() {
-    super()
+export class WsAuthGuard implements CanActivate {
+  constructor(private jwtService: JwtService) {}
+
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const request = context.switchToHttp().getRequest()
+    const client = context.switchToWs().getClient<Socket>()
+    const token = this.extractTokenFromHeader(client)
+    if (!token) {
+      throw new UnauthorizedException()
+    }
+    try {
+      const payload = await this.jwtService.verifyAsync(token, {
+        secret: jwtConstants.secret,
+      })
+      // 💡 We're assigning the payload to the request object here
+      // so that we can access it in our route handlers
+      request['user'] = payload
+    } catch {
+      throw new UnauthorizedException()
+    }
+    return true
   }
 
-  getRequest(context: ExecutionContext) {
-    return context.switchToWs().getClient().handshake
+  private extractTokenFromHeader(client: Socket): string | undefined {
+    const [type, token] =
+      client.handshake.headers.authorization?.split(' ') ?? []
+    return type === 'Bearer' ? token : undefined
   }
 }
