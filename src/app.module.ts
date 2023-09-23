@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { DirectiveLocation, GraphQLDirective } from 'graphql'
@@ -15,6 +15,7 @@ import { join } from 'path'
 import * as yaml from 'js-yaml'
 import { readFileSync } from 'fs'
 import {
+  CoreModule,
   UsersModule,
   AuthModule,
   WsModule,
@@ -22,6 +23,7 @@ import {
   HealthModule,
 } from './modules'
 import { upperDirectiveTransformer } from './common/directives/upper-case.directive'
+import { LoggerMiddleware } from './common/middlewares/logger.middleware'
 
 @Module({
   imports: [
@@ -52,6 +54,7 @@ import { upperDirectiveTransformer } from './common/directives/upper-case.direct
       ],
       inject: [ConfigService],
     }),
+    CoreModule,
     UsersModule,
     AuthModule,
     CustomGraphQLModule,
@@ -77,4 +80,8 @@ import { upperDirectiveTransformer } from './common/directives/upper-case.direct
     WsModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*')
+  }
+}

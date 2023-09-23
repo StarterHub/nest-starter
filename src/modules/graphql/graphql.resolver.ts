@@ -1,4 +1,4 @@
-import { NotFoundException, UseGuards } from '@nestjs/common'
+import { NotFoundException, UseFilters, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql'
 import { PubSub } from 'graphql-subscriptions'
 import { I18nContext, I18nService } from 'nestjs-i18n'
@@ -7,10 +7,12 @@ import { RecipesArgs } from './dto/recipes.args'
 import { Recipe } from './models/graphql.model'
 import { GraphQLService } from './graphql.service'
 import { GqlAuthGuard } from './graphql.guard'
+import { GraphQLExceptionFilter } from '../../common/filters/gql-exception.filter'
 
 const pubSub = new PubSub()
 
 @Resolver((of) => Recipe)
+@UseFilters(new GraphQLExceptionFilter())
 export class GraphQLResolver {
   constructor(
     private readonly recipesService: GraphQLService,
@@ -50,7 +52,7 @@ export class GraphQLResolver {
     @Args('newRecipeData') newRecipeData: NewRecipeInput,
   ): Promise<Recipe> {
     const recipe = await this.recipesService.create(newRecipeData)
-    pubSub.publish('recipeAdded', { recipeAdded: recipe })
+    await pubSub.publish('recipeAdded', { recipeAdded: recipe })
     return recipe
   }
 

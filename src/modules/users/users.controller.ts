@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  UseFilters,
 } from '@nestjs/common'
 import { I18nContext, I18nService } from 'nestjs-i18n'
 import {
@@ -17,9 +18,11 @@ import {
 import { UsersService } from './users.service'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
+import { HttpExceptionFilter } from '../../common/filters/http-exception.filter'
 
 @Controller('users')
 @ApiTags('users')
+@UseFilters(new HttpExceptionFilter())
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,

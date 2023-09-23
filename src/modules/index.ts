@@ -1,3 +1,4 @@
+export { CoreModule } from './core'
 export { AuthModule } from './auth'
 export { GraphQLModule, GraphQLResolver } from './graphql'
 export { HealthModule } from './health'

@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Post,
   Request,
+  UseFilters,
   UseGuards,
 } from '@nestjs/common'
 import {
@@ -17,9 +18,11 @@ import {
 import { AuthGuard } from '@nestjs/passport'
 import { AuthService } from './auth.service'
 import { Public } from './decorators/public.decorator'
+import { HttpExceptionFilter } from '../../common/filters/http-exception.filter'
 
 @Controller('auth')
 @ApiTags('auth')
+@UseFilters(new HttpExceptionFilter())
 export class AuthController {
   constructor(private authService: AuthService) {}
 

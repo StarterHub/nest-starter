@@ -6,11 +6,12 @@ import {
   WsResponse,
   OnGatewayInit,
 } from '@nestjs/websockets'
-import { UseGuards } from '@nestjs/common'
+import { UseFilters, UseGuards } from '@nestjs/common'
 import { I18nContext, I18nService } from 'nestjs-i18n'
 import { Server, Socket } from 'socket.io'
 import { from, map, Observable } from 'rxjs'
 import { WsAuthGuard } from './ws.guard'
+import { WebsocketExceptionFilter } from '../../common/filters/ws-exception.filter'
 
 @WebSocketGateway({
   // for socket-io
@@ -26,8 +27,7 @@ import { WsAuthGuard } from './ws.guard'
   },
   transports: ['websocket'],
 })
-// @UseGuards(WsAuthGuard)
-// @UseGuards(AuthGuard('jwt'))
+@UseFilters(new WebsocketExceptionFilter())
 export class WsGateway implements OnGatewayInit<Server> {
   @WebSocketServer()
   server: Server
@@ -62,6 +62,6 @@ export class WsGateway implements OnGatewayInit<Server> {
   }
 
   afterInit(server: Server): any {
-    console.log('server', server)
+    // console.log('server', server)
   }
 }
