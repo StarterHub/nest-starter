@@ -2,14 +2,16 @@ import { ValidationPipe, VersioningType } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { IoAdapter } from '@nestjs/platform-socket.io'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { NestExpressApplication } from '@nestjs/platform-express'
 import bodyParser from 'body-parser'
 import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
+import { join } from 'path'
 import { AppModule } from './app.module'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create<NestExpressApplication>(AppModule)
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(cookieParser('cookie-parser-secret'))
   app.use(
@@ -27,6 +29,7 @@ async function bootstrap() {
   app.use(helmet())
   // Enable Cors
   app.enableCors()
+  app.useStaticAssets(join(__dirname, '..', 'public'))
   app.setGlobalPrefix('/api')
   app.useGlobalPipes(new ValidationPipe())
   app.enableVersioning({
