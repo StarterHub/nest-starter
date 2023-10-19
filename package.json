@@ -75,7 +75,7 @@
     "@types/passport-jwt": "^3.0.11",
     "@types/passport-local": "^1.0.36",
     "@types/supertest": "^2.0.15",
-    "@types/webpack-env": "^1.18.2",
+    "@types/webpack-env": "^1.18.3",
     "@types/webpack-node-externals": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "@typescript-eslint/parser": "^6.8.0",
