@@ -57,7 +57,7 @@
     "socket.io": "^4.7.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^18.1.0",
+    "@commitlint/cli": "^18.2.0",
     "@commitlint/config-conventional": "^18.1.0",
     "@nestjs/cli": "^10.2.0",
     "@nestjs/schematics": "^10.0.2",
