@@ -71,7 +71,7 @@
     "@types/express-session": "^1.17.9",
     "@types/jest": "^29.5.7",
     "@types/js-yaml": "^4.0.8",
-    "@types/node": "^18.18.7",
+    "@types/node": "^18.18.8",
     "@types/passport-jwt": "^3.0.12",
     "@types/passport-local": "^1.0.37",
     "@types/supertest": "^2.0.15",
