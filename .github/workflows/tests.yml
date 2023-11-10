@@ -30,8 +30,10 @@ jobs:
         with:
           check-latest: true
           node-version: ${{ matrix.node }}
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Install deps
-        run: yarn
-
+        run: pnpm i
       - name: Run tests
-        run: yarn test
+        run: pnpm test

@@ -5,20 +5,20 @@
 ## Installation
 
 ```bash
-$ yarn
+$ pnpm i
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ yarn start
+$ pnpm start
 
 # watch mode
-$ yarn start:dev
+$ pnpm start:dev
 
 # production mode
-$ yarn start:prod
+$ pnpm start:prod
 ```
 ## Endpoint
 
@@ -60,13 +60,13 @@ GET: `http://127.0.0.1:3001/api/health/memory`
 
 ```bash
 # unit tests
-$ yarn test
+$ pnpm test
 
 # e2e tests
-$ yarn test:e2e
+$ pnpm test:e2e
 
 # test coverage
-$ yarn test:cov
+$ pnpm test:cov
 ```
 
 ## Known issues
