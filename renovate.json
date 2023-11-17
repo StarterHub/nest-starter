@@ -8,6 +8,10 @@
     {
       "allowedVersions": "18",
       "matchPackageNames": ["@types/node"]
+    },
+    {
+      "matchPackagePatterns": ["nestjs"],
+      "groupName": "nestjs"
     }
   ]
 }
