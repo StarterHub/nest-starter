@@ -32,7 +32,7 @@ import { LoggerMiddleware } from './common/middlewares/logger.middleware'
       load: [
         () => {
           return yaml.load(
-            readFileSync(join(__dirname, '/config/config.yaml'), 'utf8'),
+            readFileSync(join(__dirname, '..', 'config.yaml'), 'utf8'),
           ) as Record<string, any>
         },
       ],
@@ -41,7 +41,7 @@ import { LoggerMiddleware } from './common/middlewares/logger.middleware'
       useFactory: (configService: ConfigService) => ({
         fallbackLanguage: configService.getOrThrow('fallback_language'),
         loaderOptions: {
-          path: join(__dirname, '/i18n/'),
+          path: join(__dirname, '..', '/i18n/'),
           watch: true,
         },
       }),
