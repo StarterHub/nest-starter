@@ -1,7 +1,5 @@
 # nest-starter
 
-[![CodeFactor](https://www.codefactor.io/repository/github/kjxbyz/nest-starter/badge)](https://www.codefactor.io/repository/github/kjxbyz/nest-starter)
-
 ## Installation
 
 ```bash
