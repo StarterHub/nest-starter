@@ -10,6 +10,13 @@
       "matchPackageNames": ["@types/node"]
     },
     {
+      "allowedVersions": "18",
+      "matchPackageNames": [
+        "@commitlint/cli",
+        "@commitlint/config-conventional"
+      ]
+    },
+    {
       "matchPackagePatterns": ["nestjs"],
       "groupName": "nestjs"
     }
