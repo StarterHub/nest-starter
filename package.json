@@ -45,7 +45,7 @@
     "graphql": "^16.8.1",
     "graphql-query-complexity": "^0.12.0",
     "graphql-subscriptions": "^2.0.0",
-    "graphql-ws": "^5.15.0",
+    "graphql-ws": "^5.16.0",
     "helmet": "^7.1.0",
     "js-yaml": "^4.1.0",
     "nestjs-i18n": "^10.4.5",
