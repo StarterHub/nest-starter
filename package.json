@@ -21,7 +21,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@apollo/server": "^4.10.4",
+    "@apollo/server": "^4.10.5",
     "@graphql-tools/utils": "^10.3.2",
     "@nestjs/apollo": "^12.2.0",
     "@nestjs/axios": "^3.0.2",
